@@ -18,7 +18,9 @@ const CandidateSection = () => {
           </h2>
           {!hasPaid && (
             <div className="mt-4 text-gray-600">
-              <p className="text-sm mb-2">Unlock detailed candidate profiles for just <strong>$5</strong>.</p>
+              <p className="text-sm mb-2">
+                Unlock detailed candidate profiles for just <strong>$5</strong>.
+              </p>
               <button
                 onClick={handlePayment}
                 className="bg-[#ee009d] hover:bg-[#2AA100] text-white px-6 py-2 rounded-full transition duration-300"
@@ -52,9 +54,24 @@ const CandidateSection = () => {
                   alt="Talent"
                   className="w-24 h-24 rounded-full mx-auto mb-4 object-cover"
                 />
-                <h3 className="text-lg font-semibold text-[#e1b04a] text-center">John Accountant</h3>
+                <h3 className="text-lg font-semibold text-[#e1b04a] text-center">
+                  John Accountant
+                </h3>
                 <p className="text-sm text-gray-600 text-center mb-1">Tax Specialist</p>
-                <p className="text-xs text-gray-500 text-center">5+ years experience | CPA Certified</p>
+                <p className="text-xs text-gray-500 text-center mb-4">
+                  5+ years experience | CPA Certified
+                </p>
+
+                {hasPaid && (
+                  <div className="text-center">
+                    <button
+                      className="mt-2 bg-[#004AAC] hover:bg-[#003380] text-white px-4 py-2 rounded-[5px] text-sm transition duration-300"
+                      onClick={() => alert(`Viewing profile of candidate #${id}`)}
+                    >
+                      View Profile
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           ))}

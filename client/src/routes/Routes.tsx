@@ -10,6 +10,10 @@ import ScrollToTop from '../components/contants/ScrollToTop';
 import HireTalent from '../pages/hire-talent/HireTalent';
 import Register from '../components/registration/Register';
 import Login from '../components/registration/Login';
+import Dashboard from '../components/admin-dashboard/adminSection';
+import CandidateProfile from '../pages/hire-talent/candidate-profile/candidateProfile';
+import ProfileSection from '../components/admin-dashboard/profileSection';
+
 
 const AppRoutes: React.FC = () => {
   return (
@@ -25,6 +29,11 @@ const AppRoutes: React.FC = () => {
         <Route path="/hire-talent" element={<HireTalent />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="admin-board" element={<Dashboard />} />
+        <Route path="candidate-profile" element={<CandidateProfile />} />
+        <Route path="profile-page" element={<ProfileSection />} />
+
+
       </Routes>
     </Router>
   );
