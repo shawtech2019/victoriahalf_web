@@ -58,7 +58,7 @@ const ProfileSection = () => {
     const newSkills = [...skills];
     newSkills[index] = value;
     setSkills(newSkills);
-  };
+  }; 
   const removeSkill = (index: number) => {
     const newSkills = skills.filter((_, i) => i !== index);
     setSkills(newSkills);
