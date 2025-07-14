@@ -17,19 +17,27 @@ const mockClients: Client[] = [
     jobs: [
       { id: "j4", title: "Expense Review", description: "Review past 6 months' expenses.", status: "In Progress" },
       { id: "j5", title: "VAT Registration", description: "Handle VAT registration process.", status: "Pending" },
+      { id: "j6", title: "Expense Review", description: "Review past 6 months' expenses.", status: "In Progress" },
+      
     ],
   },
   {
     id: "3",
     name: "Gamma Inc",
     jobs: [
-      { id: "j6", title: "Year-End Financials", description: "Prepare year-end statements.", status: "Completed" },
+      { id: "j7", title: "Year-End Financials", description: "Prepare year-end statements.", status: "Completed" },
+      { id: "j8", title: "Cash Flow Analysis", description: "Analyze monthly cash flow trends.", status: "Completed" },
+      { id: "j9", title: "QuickBooks Migration", description: "Migrate all records to QuickBooks.", status: "In Progress" },
     ],
   },
   {
     id: "4",
     name: "Delta Co",
-    jobs: [],
+    jobs: [
+      { id: "j10", title: "Startup Budget Planning", description: "Create a 12-month financial projection.", status: "Pending" },
+      { id: "j11", title: "Employee Tax Setup", description: "Register all employees for tax.", status: "In Progress" },
+      { id: "j12", title: "Audit Report", description: "Conduct internal audit.", status: "Completed" },
+    ],
   },
 ];
 

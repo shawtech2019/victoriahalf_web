@@ -15,6 +15,7 @@ import CandidateProfile from '../pages/hire-talent/candidate-profile/candidatePr
 import ProfileSection from '../components/admin-dashboard/profileSection';
 import AdminLayout from '../components/admin-dashboard/adminLayout';
 import ClientsPage from '../components/admin-dashboard/clientsPage';
+import CandidateInvoices from '../components/admin-dashboard/invoiceSection';
 
 const AppRoutes: React.FC = () => {
   return (
@@ -35,6 +36,8 @@ const AppRoutes: React.FC = () => {
         <Route path="admin-dashboard" element={<AdminLayout element={<Dashboard />} />} />
         <Route path="profile-page" element={<AdminLayout element={<ProfileSection />} />} />
         <Route path="clients" element={<AdminLayout element={<ClientsPage />} />} />
+        <Route path="invoices" element={<AdminLayout element={<CandidateInvoices />} />} />
+
 
 
       </Routes>
