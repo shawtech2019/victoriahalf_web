@@ -1,5 +1,5 @@
 import React from "react";
-import { Client, Job } from "../contants/types/clientTypes";
+import { Client } from "../contants/types/clientTypes";
 
 const mockClients: Client[] = [
   {
@@ -54,7 +54,6 @@ const ClientsPage: React.FC = () => {
           <span className="text-blue-600 font-semibold">{totalJobs}</span>
         </p>
       </div>
-
       {mockClients.map((client) => (
         <div key={client.id} className="mb-8">
           <h2 className="text-2xl font-semibold text-gray-800 mb-4">{client.name}</h2>

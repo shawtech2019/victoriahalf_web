@@ -1,90 +1,129 @@
-// src/components/admin-dashboard/CandidateInvoices.tsx
-import React, { useState } from "react";
-import { Invoice } from "../contants/types/InvoiceTypes";
+import React from "react";
+import {
+  PieChart,
+  Pie,
+  Cell,
+  Tooltip,
+  ResponsiveContainer,
+  BarChart,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Bar,
+  Legend,
+} from "recharts";
 
-const mockInvoices: Invoice[] = [
-  {
-    id: "inv001",
-    clientName: "Acme Corp",
-    amount: 1200,
-    issuedDate: "2025-07-01",
-    dueDate: "2025-07-15",
-    status: "Pending",
-  },
-  {
-    id: "inv002",
-    clientName: "Beta LLC",
-    amount: 950,
-    issuedDate: "2025-06-15",
-    dueDate: "2025-06-30",
-    status: "Paid",
-  },
-  {
-    id: "inv003",
-    clientName: "Gamma Inc",
-    amount: 1700,
-    issuedDate: "2025-06-01",
-    dueDate: "2025-06-10",
-    status: "Overdue",
-  },
+// Mock invoice data
+const invoices = [
+  { id: "1", clientName: "Acme Corp", amount: 1200, status: "Paid" },
+  { id: "2", clientName: "Beta LLC", amount: 950, status: "Pending" },
+  { id: "3", clientName: "Gamma Inc", amount: 2000, status: "Overdue" },
+  { id: "4", clientName: "Delta Co", amount: 1350, status: "Paid" },
+  { id: "5", clientName: "Epsilon Ltd", amount: 800, status: "Pending" },
+  { id: "6", clientName: "Zeta Solutions", amount: 1600, status: "Overdue" },
+  { id: "7", clientName: "Omega Group", amount: 720, status: "Paid" },
 ];
 
-const CandidateInvoices: React.FC = () => {
-  const [invoices, setInvoices] = useState<Invoice[]>(mockInvoices);
+// Status color mapping
+const statusColors: Record<string, string> = {
+  Paid: "#16a34a",
+  Pending: "#facc15",
+  Overdue: "#dc2626",
+};
 
-  const markAsPaid = (id: string) => {
-    setInvoices((prev) =>
-      prev.map((invoice) =>
-        invoice.id === id ? { ...invoice, status: "Paid" } : invoice
-      )
-    );
-  };
+// Pie chart data (invoice count per status)
+const invoiceStatusData = [
+  { name: "Paid", value: invoices.filter((inv) => inv.status === "Paid").length },
+  { name: "Pending", value: invoices.filter((inv) => inv.status === "Pending").length },
+  { name: "Overdue", value: invoices.filter((inv) => inv.status === "Overdue").length },
+];
+
+// Bar chart data (amount per client)
+const amountPerClientData = invoices.map((inv) => ({
+  name: inv.clientName,
+  amount: inv.amount,
+}));
+
+const CandidateInvoices: React.FC = () => {
+  const totalAmount = invoices.reduce((sum, inv) => sum + inv.amount, 0);
 
   return (
-    <div className="p-6 max-w-6xl mx-auto mt-[4rem]">
-      <h2 className="text-2xl font-bold mb-6 text-[#004aac]">Candidate Invoices</h2>
+    <div className="p-6 max-w-7xl mx-auto mt-20 font-inter">
+      <h1 className="text-3xl font-bold text-[#004aac] mb-6">Candidate Invoice Dashboard</h1>
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {invoices.map((invoice) => (
-          <div
-            key={invoice.id}
-            className="bg-white shadow-md rounded-lg p-4 border border-gray-200"
-          >
-            <h3 className="text-xl font-semibold text-gray-800 mb-1">
-              {invoice.clientName}
-            </h3>
-            <p className="text-sm text-gray-600">Invoice ID: {invoice.id}</p>
-            <p className="mt-2">
-              <strong>Amount:</strong>{" "}
-              <span className="text-blue-600 font-medium">${invoice.amount}</span>
-            </p>
-            <p>
-              <strong>Issued:</strong> {invoice.issuedDate}
-            </p>
-            <p>
-              <strong>Due:</strong> {invoice.dueDate}
-            </p>
+      <div className="bg-white shadow-md rounded-lg p-4 mb-8">
+        <p className="text-lg">
+          <strong>Total Invoiced Amount:</strong>{" "}
+          <span className="text-blue-600 font-semibold">${totalAmount.toLocaleString()}</span>
+        </p>
+      </div>
 
-            <span
-              className={`inline-block mt-3 text-xs font-bold px-2 py-1 rounded-full ${
-                invoice.status === "Paid"
-                  ? "bg-green-100 text-green-700"
-                  : invoice.status === "Pending"
-                  ? "bg-yellow-100 text-yellow-700"
-                  : "bg-red-100 text-red-700"
-              }`}
-            >
-              {invoice.status}
-            </span>
-
-            {invoice.status !== "Paid" && (
-              <button
-                onClick={() => markAsPaid(invoice.id)}
-                className="block mt-4 w-full bg-[#004aac] hover:bg-blue-700 text-white text-sm py-2 px-4 rounded transition"
+      {/* Graphs Section */}
+      <div className="mb-8 grid md:grid-cols-2 gap-8">
+        {/* Pie Chart */}
+        <div className="bg-white shadow-md rounded-lg p-4">
+          <h3 className="text-lg font-semibold mb-4 text-[#004aac]">Invoice Status Overview</h3>
+          <ResponsiveContainer width="100%" height={250}>
+            <PieChart>
+              <Pie
+                dataKey="value"
+                data={invoiceStatusData}
+                cx="50%"
+                cy="50%"
+                outerRadius={80}
+                label
               >
-                Mark as Paid
-              </button>
-            )}
+                {invoiceStatusData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={statusColors[entry.name]} />
+                ))}
+              </Pie>
+              <Tooltip />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
+
+        {/* Bar Chart */}
+        <div className="bg-white shadow-md rounded-lg p-4">
+          <h3 className="text-lg font-semibold mb-4 text-[#004aac]">Amount Per Client</h3>
+          <ResponsiveContainer width="100%" height={250}>
+            <BarChart data={amountPerClientData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="amount" fill="#004aac" />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
+
+      {/* Invoice Cards */}
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {invoices.map((inv) => (
+          <div
+            key={inv.id}
+            className="bg-white border border-gray-200 shadow-md rounded-lg p-4 hover:shadow-lg transition"
+          >
+            <h2 className="text-xl font-semibold text-gray-800 mb-2">{inv.clientName}</h2>
+            <p className="text-gray-600">
+              Amount:{" "}
+              <span className="font-medium text-blue-600">${inv.amount.toLocaleString()}</span>
+            </p>
+            <p className="text-gray-600">
+              Status:{" "}
+              <span
+                className={`font-semibold ${
+                  inv.status === "Paid"
+                    ? "text-green-600"
+                    : inv.status === "Pending"
+                    ? "text-yellow-600"
+                    : "text-red-600"
+                }`}
+              >
+                {inv.status}
+              </span>
+            </p>
           </div>
         ))}
       </div>
